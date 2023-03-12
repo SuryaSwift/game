@@ -1,0 +1,5 @@
+pygame 
+jupyterlab
+numpy
+matplotlib
+opencv-contrib-python
