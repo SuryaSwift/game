@@ -62,6 +62,18 @@ def clamp(n, a, b):
     """
     return max(min(b, n), a)
 
+def load_door_sprites(path="tiled/door_anims.png"): 
+    ss = SpriteSheet(path)
+    rows = ss.grid_split(7, 4)
+
+    door = rows[4]
+    # for col in door: 
+    #     numpy_surf = pygame.surfarray.array3d(col)
+    #     numpy_surf = numpy_surf.swapaxes(0,1)
+    #     plt.imshow(numpy_surf)
+    #     plt.show()
+    return door
+
 def load_player_sprites(path="tiled/man.png"): 
     """Load the player sprites from a spritesheet
     Returns a dictionary of lists of surfaces, one for each direction.
@@ -121,3 +133,4 @@ if __name__ == "__main__":
     pygame.init()
     gameScreen = pygame.display.set_mode((500, 500), flags=pygame.SCALED, vsync=1)
     sprites = load_player_sprites()
+    door_sprites = load_door_sprites()

@@ -4,6 +4,68 @@ from pygame.math import Vector2
 import pytmx
 import utils 
 
+class Door(pygame.sprite.Sprite):
+    def __init__(self, x, y, world):
+        super().__init__()
+        self.state = 'CLOSED'
+        self.anim_frame = 0
+        self.world = world
+        self.sprites = utils.load_door_sprites()
+        self.image = self.sprites[0]
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.rect.width = self.image.get_width()
+        self.rect.height = self.image.get_height()
+        print(f"Door created at {x}, {y} with size {self.rect.width}, {self.rect.height}")
+
+    def toggle(self): 
+        """Toggles the door state.
+            - If the door is closed, it will start opening.
+            - If the door is open, it will start closing.
+        """
+        if self.state == 'CLOSED':
+            self.open()
+        elif self.state == 'OPEN':
+            self.close()
+        else:
+            print(f"Door cannot be toggled from {self.state} state")
+
+    def open(self):
+        """Opens the door.
+            - If the door is closed, it will start opening.
+        """
+        if self.state == 'CLOSED':
+            self.state = 'OPENING'
+            self.anim_frame = 0
+        else:
+            print(f"Door cannot be opened from {self.state} state")
+    
+    def close(self):
+        """Closes the door.
+            - If the door is open, it will start closing.
+        """
+        if self.state == 'OPEN':
+            self.state = 'CLOSING'
+        else: 
+            print(f"Door cannot be closed from {self.state} state")
+
+    def is_open(self):
+        return self.state == 'OPEN'
+    
+    def view(self):
+        return self.sprites[self.anim_frame]
+        
+    def update(self):
+        if self.state == 'OPENING':
+            self.anim_frame += 1
+            if self.anim_frame == len(self.sprites) - 1:
+                self.state = 'OPEN'
+        elif self.state == 'CLOSING':
+            self.anim_frame -= 1
+            if self.anim_frame == 0:
+                self.state = 'CLOSED'
+
 class World: 
     def __init__(self, tiled_map):
         """
@@ -17,9 +79,11 @@ class World:
         self.ground = self.tiled_map.get_layer_by_name('Ground')
         self.foreground = self.tiled_map.get_layer_by_name('Foreground')
         self.objects = self.tiled_map.get_layer_by_name('Objects')
+        self.doors = {(d.x // self.tilesize, d.y // self.tilesize): Door(d.x, d.y, self) for d in self.tiled_map.get_layer_by_name('Doors')}
 
     def update(self):
-        pass
+        for door in self.doors.values():
+            door.update()
         
     def will_collide(self, x,y): 
         """
@@ -28,6 +92,8 @@ class World:
         if x < 0 or x >= self.width or y < 0 or y >= self.height:
             return True
         if self.objects.data[y][x] != 0:
+            return True
+        if (x,y) in self.doors and not self.doors[(x,y)].is_open():
             return True
         return False
     
@@ -56,6 +122,10 @@ class World:
                     rect = pygame.Rect(x * self.tilesize, y * self.tilesize, self.tilesize, self.tilesize)
                     # draw the outline of the rect in red on the surface 
                     pygame.draw.rect(surface, (255, 0, 0), rect, 1)
+        
+        for door in self.doors.values():
+            surface.blit(door.view(), door.rect)
+        
         return surface
     
     def draw_foreground(self, surface: pygame.Surface, debug=False): 
@@ -114,6 +184,16 @@ class Player(pygame.sprite.Sprite):
              Example: {'direction': 'UP'}
         """
         self.tick += 1
+
+        ax,ay = self.movemap(self.direction)
+        if (self.x+ax, self.y+ay) in self.world.doors:
+            print(self.world.doors[(self.x+ax, self.y+ay)])
+            # if key 'SPACE' is pressed, open the door
+            # use pygame key constants for this
+            if pygame.key.get_pressed()[pygame.K_SPACE]:
+                self.world.doors[(self.x+ax, self.y+ay)].toggle()
+                return
+            
 
         if self.state == 'IDLE': 
             if actions['direction'] == self.direction:
@@ -283,7 +363,7 @@ class Game:
         Main game loop.
         """
         while self.state != 'EXIT':
-            print(pygame.mouse.get_pos(), pygame.mouse.get_rel())
+            # print(pygame.mouse.get_pos(), pygame.mouse.get_rel())
             self.clock.tick(30)
             self.screen.fill((88,88,88))
             self.__handle_events()
@@ -339,11 +419,10 @@ SCREEN_WIDTH = 400
 SCREEN_HEIGHT = 300
 dims = (SCREEN_WIDTH, SCREEN_HEIGHT)
 
-def main():
+
+    
+if __name__ == '__main__':
     pygame.init()
     screen = pygame.display.set_mode(dims,flags=pygame.SCALED, vsync=0)
     game = Game(screen)
     game.mainloop()
-    
-if __name__ == '__main__':
-    main()
