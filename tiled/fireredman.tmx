@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="4" height="8" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="firered.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="4" height="8">
+  <data encoding="csv">
+36,35,36,37,
+70,69,70,71,
+104,103,104,105,
+138,137,138,139,
+2147483820,2147483821,2147483820,2147483819,
+2147483854,2147483855,2147483854,2147483853,
+2147483821,2147483820,2147483819,2147483820,
+2147483855,2147483854,2147483853,2147483854
+</data>
+ </layer>
+</map>

@@ -3,25 +3,77 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
-    "expandedProjectPaths": [
+    "activeFile": "tiled/man.tmx",
+    "console.history": [
+        "ls",
+        "print('hi')",
+        "asdf",
+        "import numpy as np",
+        "console.log",
+        "alert",
+        "window",
+        "console.log('hi')",
+        "help()"
     ],
+    "expandedProjectPaths": [
+        "tiled"
+    ],
+    "exportAsImage.includeBackgroundColor": true,
     "fileStates": {
+        "tiled/WoodenHouse.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3.01
+        },
         "tiled/boolground.tmx": {
-            "scale": 2.5664,
+            "scale": 1.9333,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 176.38235141985206,
+                "y": 108.62256245797342
+            }
+        },
+        "tiled/building.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 8
+        },
+        "tiled/building_door.tsx": {
+            "scaleInEditor": 3.01
+        },
+        "tiled/doors.tmx": {
+            "scale": 3.645625,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 189.37032418952617,
-                "y": 150.60006234413964
+                "x": 80.09600548602778,
+                "y": 80.50745756900395
+            }
+        },
+        "tiled/doors.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 6.4991
+        },
+        "tiled/firered_animated.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3.01
+        },
+        "tiled/fireredman.tmx": {
+            "scale": 5.855859375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 30.90921219398306,
+                "y": 70.95457274364618
             }
         },
         "tiled/man.tmx": {
-            "scale": 7.8078125,
+            "scale": 7.8,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 26.511907144286575,
-                "y": 42.201320792475485
+                "x": 56.15384615384616,
+                "y": 60.448717948717956
             }
+        },
+        "tiled/pkmn.tsx": {
+            "scaleInDock": 2.1103,
+            "scaleInEditor": 3.22
         },
         "tiled/player.tmx": {
             "scale": 8.7841,
@@ -33,33 +85,55 @@
         },
         "tiled/pokemon.tsx": {
             "scaleInDock": 2.1258,
-            "scaleInEditor": 4.4354
+            "scaleInEditor": 3.22
+        },
+        "tiled/roguelike.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3.22
         },
         "tiled/town.tsx": {
             "dynamicWrapping": false,
-            "scaleInEditor": 3.36
+            "scaleInDock": 3.4039,
+            "scaleInEditor": 3.22
         }
     },
-    "last.imagePath": "/Users/ausafm/Desktop/dev/game/tiled",
-    "map.height": 3,
+    "last.imagePath": "/Users/ausafm/Downloads",
+    "map.height": 8,
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 32,
+    "map.tileHeight": 16,
     "map.tileWidth": 16,
     "map.width": 4,
     "openFiles": [
+        "tiled/boolground.tmx",
+        "tiled/town.tsx",
+        "tiled/roguelike.tsx",
+        "tiled/pokemon.tsx",
+        "tiled/pkmn.tsx",
+        "tiled/man.tmx"
     ],
     "project": "tilemap.tiled-project",
     "recentFiles": [
-        "tiled/player.tmx",
+        "tiled/building_door.tsx",
+        "tiled/WoodenHouse.tsx",
+        "tiled/doors.tsx",
+        "tiled/doors.tmx",
+        "tiled/firered_animated.tsx",
+        "tiled/building.tsx",
+        "tiled/boolground.tmx",
+        "tiled/town.tsx",
+        "tiled/roguelike.tsx",
         "tiled/pokemon.tsx",
-        "tiled/town.tsx"
+        "tiled/pkmn.tsx",
+        "tiled/man.tmx"
     ],
+    "resizeMap.removeObjects": false,
     "tileset.lastUsedFormat": "tsx",
-    "tileset.spacing": 0,
+    "tileset.margin": 0,
+    "tileset.spacing": 2,
     "tileset.tileSize": {
-        "height": 32,
+        "height": 16,
         "width": 16
     },
-    "tileset.transparentColor": "#117bfc",
-    "tileset.useTransparentColor": true
+    "tileset.transparentColor": "#f6ca79",
+    "tileset.useTransparentColor": false
 }

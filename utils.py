@@ -3,6 +3,7 @@ import cv2
 import pygame
 import matplotlib.pyplot as plt
 class SpriteSheet:
+    """Class used to grab images out of a sprite sheet."""
     def __init__(self, filename):
         """Load the sheet."""
         try:
@@ -12,6 +13,10 @@ class SpriteSheet:
             raise SystemExit(e)
 
     def grid_split(self, nrows, ncols, colorkey=(0,128,255)):
+        """
+        Split the sheet into a grid of nrows x ncols tiles.
+        Returns a list of lists of surfaces, one for each row.
+        """
         imgheight = self.sheet.get_height()
         imgwidth = self.sheet.get_width()
         y1 = 0
@@ -47,10 +52,22 @@ class SpriteSheet:
 
 
 def clamp(n, a, b): 
-    """Clamp a number between a and b (inclusive)"""
+    """Clamp a number between a and b (inclusive)
+        n: number to clamp
+        a: lower bound
+        b: upper bound
+        Examples: 
+            clamp(5, 0, 10) -> 5
+            clamp(-1, 0, 10) -> 0
+    """
     return max(min(b, n), a)
 
-def load_player_sprites(path="tiled/man.png", tilesize=50): 
+def load_player_sprites(path="tiled/man.png"): 
+    """Load the player sprites from a spritesheet
+    Returns a dictionary of lists of surfaces, one for each direction.
+    path: path to the spritesheet
+    tilesize: size of each tile in pixels
+    """
     ss = SpriteSheet(path)
     rows = ss.grid_split(3,4)
     return {
@@ -69,28 +86,12 @@ def read_spritesheet(path, nrows, ncols, tilesize=50):
         surfs = []
         for j, tilearray in enumerate(row): 
             tilearray = (255*tilearray/tilearray.max()).astype(np.uint8)
+            # use custom function to make surface with per-pixel alpha
             surf = make_surface_rgba(tilearray)
             pygame.transform.scale(surf, (tilesize*2, tilesize))
             surfs.append(surf)
         surfaces.append(surfs)
     return surfaces 
-
-def split_image(im, nrows, ncols):
-    imgheight=im.shape[0]
-    imgwidth=im.shape[1]
-
-    y1 = 0
-    M = imgheight//nrows
-    N = imgwidth//ncols
-    tiles=[]
-    for y in range(0,imgheight,M):
-        rowtiles = []
-        for x in range(0, imgwidth, N):
-            y1 = y + M
-            x1 = x + N
-            rowtiles.append(im[y:y+M,x:x+N])
-        tiles.append(rowtiles)
-    return tiles
 
 import numpy
 import pygame.pixelcopy
